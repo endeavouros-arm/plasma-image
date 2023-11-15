@@ -1,0 +1,37 @@
+<!DOCTYPE Menu PUBLIC '-//freedesktop//DTD Menu 1.0//EN' 'http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd'>
+<Menu>
+ <Menu>
+  <Name>System</Name>
+  <Layout>
+   <Merge type="files"/>
+   <Filename>Start Installer.desktop</Filename>
+   <Merge type="menus"/>
+   <Menuname>ScreenSavers</Menuname>
+   <Menuname>Terminal</Menuname>
+   <Filename>avahi-discover.desktop</Filename>
+   <Filename>eos-update-notifier-configure.desktop</Filename>
+   <Filename>org.kde.drkonqi.coredump.gui.desktop</Filename>
+   <Filename>org.kde.discover.desktop</Filename>
+   <Filename>org.kde.dolphin.desktop</Filename>
+   <Filename>eos-quickstart.desktop</Filename>
+   <Filename>eos-apps-info.desktop</Filename>
+   <Filename>eos-log-tool.desktop</Filename>
+   <Filename>firewall-config.desktop</Filename>
+   <Filename>grsync.desktop</Filename>
+   <Filename>lstopo.desktop</Filename>
+   <Filename>org.kde.kinfocenter.desktop</Filename>
+   <Filename>org.kde.konsole.desktop</Filename>
+   <Filename>org.kde.kmenuedit.desktop</Filename>
+   <Filename>org.kde.plasma-systemmonitor.desktop</Filename>
+   <Filename>uxterm.desktop</Filename>
+   <Filename>welcome.desktop</Filename>
+   <Filename>xterm.desktop</Filename>
+   <Filename>eos-update.desktop</Filename>
+   <Separator/>
+   <Menuname>More</Menuname>
+  </Layout>
+  <Include>
+   <Filename>Start Installer.desktop</Filename>
+  </Include>
+ </Menu>
+</Menu>

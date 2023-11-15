@@ -1,0 +1,6 @@
+[Desktop Entry]
+Icon=endeavouros-icon
+Name=eos-log-tool.desktop
+Type=Link
+URL[$e]=file:///usr/share/applications/eos-log-tool.desktop
+X-KDE-LastOpenedWith=org.kde.kate
