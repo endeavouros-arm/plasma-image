@@ -1,0 +1,4 @@
+linux-odroid
+linux-odroid-headers
+uboot-odroid-n2plus
+odroid-n2-post-install
