@@ -1,0 +1,22 @@
+#!/bin/bash
+
+curl https://github.com/endeavouros-team/repo/tree/master/endeavouros/aarch64 | grep -o '{"name".*tar.zst' | head -n 1 | sed -e "s/},{/\n/"g | grep -v .sig | grep -v 'endeavouros.db\|endeavouros.files' | sed 's/\"name\":\"//g' | sed 's/-any.*//g' | sed 's/-aarch64.*//g' | sed 's/^.*items\"\:\[{//g' > aarch64_pkgs
+
+curl https://github.com/endeavouros-team/repo/tree/master/endeavouros/x86_64 | grep -o '{"name".*tar.zst' | head -n 1 | sed -e "s/},{/\n/"g | grep -v .sig | grep -v 'endeavouros.db\|endeavouros.files' | sed 's/\"name\":\"//g' | sed 's/-any.*//g' | sed 's/-x86_64.*//g' | sed 's/^.*items\"\:\[{//g' > x86_pkgs
+
+sed -i '/akm\|eos-base\|paru\|zfs-dkms\|zfs-utils/d' x86_pkgs
+sed -i '/nvidia\|reflector\|ly\|grub/d' x86_pkgs
+sed -i '/keyserver-rank\|downgrade\|mkinitcpio/d' x86_pkgs
+sed -i '/virtualbox-ext-oracle\|rate-mirrors/d' x86_pkgs
+# sed -i '/calamares_current/d' x86_pkgs
+# sed -i '/calamares_config_ce\|calamares_config_default/d' x86_pkgs
+# sed -i '/linux-odroid\|linux-odroid-headers\|odroid-alsa/d' aarch64_pkgs
+sed -i '/qemu-arm-aarch64-static-bin/d' x86_pkgs
+
+
+meld x86_pkgs aarch64_pkgs
+
+rm x86_pkgs aarch64_pkgs
+
+exit
+

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+## Script to compare Community edition packages between ARM and x64
+
+curl https://raw.githubusercontent.com/endeavouros-team/calamares/calamares/data/eos/modules/packagechooser_ce.conf > x86_pkgs
+curl https://raw.githubusercontent.com/endeavouros-arm/calamares-image/main/configs/calamares/modules/packagechooser_ce.conf > aarch64_pkgs
+
+if pacman -Qq neovim > /dev/null ; then
+  nvim -d aarch64_pkgs x86_pkgs
+else
+  meld aarch64_pkgs x86_pkgs
+fi
+
+rm x86_pkgs
+
+exit
+

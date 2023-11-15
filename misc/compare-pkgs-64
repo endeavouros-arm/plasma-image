@@ -1,0 +1,27 @@
+#!/bin/bash
+
+curl https://github.com/endeavouros-team/repo/tree/master/endeavouros/aarch64 | grep "pkg.tar.zst\|pkg.tar.xz" | grep -v ".sig" | awk '{print $8}'| grep "title="| sed 's/title="//g' | sed 's/-any.*//g' | sed 's/-aarch64.*//g' > aarch64_pkgs
+
+# curl https://github.com/endeavouros-team/repo/tree/master/endeavouros/armv7h | grep "pkg.tar.zst\|pkg.tar.xz" | grep -v ".sig" | awk '{print $8}'| grep "title="| sed 's/title="//g' | sed 's/-any.*//g' | sed 's/-armv7h.*//g' > armv7h_pkgs
+
+curl https://github.com/endeavouros-team/repo/tree/master/endeavouros/x86_64 | grep "pkg.tar.zst\|pkg.tar.xz" | grep -v ".sig" | awk '{print $8}'| grep "title="| sed 's/title="//g' | sed 's/-any.*//g' | sed 's/-x86_64.*//g' > x86_pkgs
+
+sed -i '/akm\|eos-base\|paru\|zfs-dkms\|zfs-utils/d' x86_pkgs
+sed -i '/nvidia\|reflector\|ly\|grub/d' x86_pkgs
+sed -i '/keyserver-rank\|downgrade\|mkinitcpio/d' x86_pkgs
+sed -i '/virtualbox-ext-oracle\|rate-mirrors/d' x86_pkgs
+# sed -i '/calamares_current/d' x86_pkgs
+# sed -i '/calamares_config_ce\|calamares_config_default/d' x86_pkgs
+sed -i '/linux-odroid\|linux-odroid-headers\|mesa-devel-git\|odroid-alsa/d' aarch64_pkgs
+
+
+if pacman -Qq neovim > /dev/null ; then
+  nvim -d aarch64_pkgs x86_pkgs
+else
+  meld aarch64_pkgs x86_pkgs
+fi
+
+rm x86_pkgs aarch64_pkgs
+
+exit
+

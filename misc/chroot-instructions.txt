@@ -1,0 +1,61 @@
+This works on my end with compatible devices.
+Now test if this will work with your non-compatible device.
+Once proven this works, I can see about adding this to the 
+install-image-linux-aarch64.sh script.  
+
+Actually, this will be a good lesson to learn if you haven't
+used arch-chroot before.  
+
+make sure you have the latest scripts from here in their own directory
+https://github.com/pudges-place/exper
+
+after the install-image-linux-aarch64.sh scipt finishes and
+gives you the prompt back manually type in the following commands.
+
+$ pacman -Q arch-install-scripts   (this provides arch-chroot)
+$ sudo pacman -S arch-install-scripts   (install if necessary)
+$ mkdir MP1
+$ lsblk -f       (to provide device names such as /dev/sda)
+$ sudo mount /dev/sda2 MP1
+$ sudo mount /dev/sda1 MP1/boot
+$ su           (enter your root password)
+# arch-chroot MP1
+# ls /home   (if chroot is successful, should show alarm as user)
+# pacman-key --init
+# pacman-key --populate archlinuxarm
+# pacman -Syy
+# pacman -R --noconfirm linux-aarch64 uboot-raspberrypi
+# pacman -S --noconfirm --needed linux-rpi raspberrypi-bootloader raspberrypi-firmware
+# exit    (exit from arch-chroot)
+# ls /home   (should show your normal user)
+# rm -rf MP1/etc/pacman.d/gnupg
+# unmount MP1/boot
+# unmount MP1
+# exit       (exit from root back to user)
+$ rm -rf MP1
+
+Should be back to the directory where you started.
+ls -l should show files as when you started.
+
+using gnome-disks umount the uSD card
+RPi 4b should boot up properly ?????
+
+At this point, hopefully it has been proved this patch
+works for the newest RPi 4b and RPi 400.
+
+If you want to go to the next script, switch-kernel.sh 
+(I guess we need to change the script name now)
+You will have to comment out line 111
+and change 112 so it looks like this:
+
+# pacman -R --noconfirm linux-aarch64 uboot-raspberrypi
+pacman -Syu --noconfirm --needed git libnewt wget networkmanager base-devel
+
+If you want to complete the image by running create-image.sh
+at the end of the script, look at the pathname that
+bsdtar uses and that you have a similar directory tree 
+
+Hoping for the best
+
+
+

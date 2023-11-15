@@ -1,0 +1,21 @@
+#!/bin/bash
+
+## Script to compare Community edition packages between ARM and x64
+
+curl https://raw.githubusercontent.com/endeavouros-team/calamares/calamares/data/eos/modules/netinstall.yaml > x86_pkgs
+curl https://raw.githubusercontent.com/endeavouros-arm/calamares-image/main/configs/calamares/modules/netinstall.yaml > aarch64_pkgs
+
+# sed -i '/- name: "XFCE4-Desktop"/,$!d' x86_pkgs
+# sed -i '/- name: "XFCE4-Desktop"/,$!d' aarch64_pkgs
+
+if pacman -Qq neovim > /dev/null ; then
+  nvim -d aarch64_pkgs x86_pkgs
+else
+  meld aarch64_pkgs x86_pkgs
+fi
+
+cp aarch64_pkgs ../configs/calamares/modules/netinstall.yaml
+rm x86_pkgs aarch64_pkgs
+
+exit
+
