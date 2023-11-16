@@ -74,7 +74,7 @@ Main() {
   fi
 
 
-  if [ "$LIGHTDM" = "true" ] ; then
+  if [ "LIGHTDM" = "true" ] ; then
     systemctl -f enable lightdm.service
   fi
 
