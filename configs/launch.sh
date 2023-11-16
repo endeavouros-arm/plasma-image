@@ -3,13 +3,12 @@
 source /usr/share/endeavouros/scripts/eos-script-lib-yad
 
 calamares-official() {
-    sudo cp /home/alarm/configs/calamares/settings_online.conf /etc/calamares/settings.conf
     sudo -E calamares -D 8 >> /home/alarm/endeavour-install.log
 }
 export -f calamares-official
 
 edit-mirrors() {
-    konsole -e "sudo nano /etc/pacman.d/mirrorlist"
+    kate /etc/pacman.d/mirrorlist
 }
 export -f edit-mirrors
 
