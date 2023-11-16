@@ -1,6 +1,0 @@
-[Desktop Entry]
-Icon=calamares
-Name=calamares.desktop
-Type=Link
-URL[$e]=file:///usr/share/applications/calamares.desktop
-X-KDE-LastOpenedWith=org.kde.kate
