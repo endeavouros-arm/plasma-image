@@ -75,21 +75,15 @@ Main() {
 
 
   if [ "$LIGHTDM" = "true" ] ; then
-    systemctl disable sddm.service
-    systemctl enable lightdm.service
-    systemctl start lightdm.service
+    systemctl -f enable lightdm.service
   fi
 
   if [ "GDM" = "true" ] ; then
-    systemctl disable sddm.service
-    systemctl enable gdm.service
-    systemctl start gdm.service
+    systemctl -f enable gdm.service
   fi
 
   if [ "SDDM" = "true" ] ; then
-    systemctl disable sddm.service
-    systemctl enable sddm.service
-    systemctl start sddm.service
+    systemctl -f enable sddm.service
   fi
 
   systemctl daemon-reload
