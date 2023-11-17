@@ -1,5 +1,5 @@
 [Unit]
-Description=Clean-up Script
+Description=Claim unused memory on storage device
 After=multi-user.target
 Before=shutdown.target
 

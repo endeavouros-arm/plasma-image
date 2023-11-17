@@ -1,0 +1,16 @@
+ printf "export DISPLAY=':0'\nxhost +SI:localuser:alarm\nxhost +SI:localuser:root\nexec plasma\n" >> /home/alarm/.xinitrc
+ printf "if [ -z \"\${DISPLAY}\" ] && [ \"\${XDG_VTNR}\" -eq 1 ]; then\n  exec startx\nfi\n" >> /home/alarm/.bash_profile
+
+ cp /usr/lib/systemd/system/getty@.service /usr/lib/systemd/system/getty@.service.bak
+ cp /root/configs/getty@.service /usr/lib/systemd/system/getty@.service
+
+ rm /home/alarm/.Xauthority
+
+ systemctl enable sddm
+
+ printf "[Autologin]\nRelogin=false\nSession=plasma\nUser=alarm\n\n[General]\nHaltCommand=/user/bin/systemctl poweroff\nRebootCommand=/user/bin/systemctl reboot\n\n" > /etc/sddm.conf.d/kde_settings.conf
+
+ printf "[Theme]\nCurrent=breeze-dark\n\n[Users]\nMaximumUid=60513\nMinimumUID=1000\n" >> /etc/sddm.conf.d/kde_settings.conf
+
+#######################################################################################
+

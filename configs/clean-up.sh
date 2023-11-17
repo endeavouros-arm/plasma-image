@@ -7,6 +7,7 @@ _remove_packages_plasma () {
     pacman -Rns --noconfirm spectacle
     pacman -Rns --noconfirm plasma
     pacman -Rns --noconfirm konsole dolphin kate
+    rm /etc/sddm.conf
 }
 
 _disable_autologin_sddm () {
@@ -16,9 +17,9 @@ _disable_autologin_sddm () {
 
 Main() {
 
-  LIGHTDM=false
-  GDM=false
-  SDDM=false
+  LIGHTDM="false"
+  GDM="false"
+  SDDM="false"
 
   cp /home/alarm/endeavour-install.log /tmp/
   sed -i 's/alarm ALL=(ALL:ALL) NOPASSWD: ALL/ /g' /etc/sudoers
@@ -47,7 +48,7 @@ Main() {
 
   # using the presence of ark to determine if KDE Plasma was a chosen Desktop Environment
   if pacman -Qq ark >/dev/null 2>&1 ; then
-     SDDM=true
+     SDDM="true"
      _disable_autologin_sddm
      pacman -Rns --noconfirm plasma-welcome
      pacman -S --noconfirm eos-plasma-sddm-config # re-install to set sddm config
@@ -56,31 +57,35 @@ Main() {
   fi
 
   if pacman -Qq xfce4-session >/dev/null 2>&1 ; then
-    LIGHTDM=true
+    LIGHTDM="true"
   elif pacman -Qq i3-gaps >/dev/null 2>&1 ; then
-    LIGHTDM=true
+    LIGHTDM="true"
   elif pacman -Qq gnome-shell >/dev/null 2>&1 ; then
-    GDM=true
+    GDM="true"
   elif pacman -Qq mate-desktop >/dev/null 2>&1 ; then
-    LIGHTDM=true
+    LIGHTDM="true"
   elif pacman -Qq cinnamon-desktop >/dev/null 2>&1 ; then
-    LIGHTDM=true
+    LIGHTDM="true"
   elif pacman -Qq budgie-desktop >/dev/null 2>&1 ; then
-    LIGHTDM=true
+    LIGHTDM="true"
   elif pacman -Qq lxqt-session >/dev/null 2>&1 ; then
-    SDDM=true
+    SDDM="true"
   elif pacman -Qq lxde-common >/dev/null 2>&1 ; then
-    LIGHTDM=true
+    LIGHTDM="true"
   fi
 
 
   if [ "$LIGHTDM" = "true" ] ; then
+    printf "\n\nBreakPoint enabling lightdm\n\n"
+    read z
+    rm /etc/sddm.conf.d/kde_settings.conf
     systemctl disable sddm.service
     systemctl enable lightdm.service
     systemctl start lightdm.service
   fi
 
   if [ "GDM" = "true" ] ; then
+    rm /etc/sddm.conf.d/kde_settings.conf
     systemctl disable sddm.service
     systemctl enable gdm.service
     systemctl start gdm.service
@@ -92,7 +97,7 @@ Main() {
     systemctl start sddm.service
   fi
 
-  systemctl daemon-reload
+  systemctl enable NetworkManager
 
   exit
 }
