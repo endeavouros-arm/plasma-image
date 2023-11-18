@@ -393,7 +393,6 @@ Main() {
        Radxa5b)  cat $WORKDIR/build-configs/addons-radxa5b.txt >> $WORKDIR/build-configs/ARM-pkglist.txt
                  _install_Radxa5b_image ;;
     esac
-    pacman -Rns --noconfirm sddm
     rm $WORKDIR/build-configs/ARM-pkglist.txt
     printf "\n\n${CYAN}arch-chroot to configure image.${NC}\n\n"
     _arch_chroot

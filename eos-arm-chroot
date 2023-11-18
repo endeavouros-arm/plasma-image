@@ -76,6 +76,9 @@ _finish_up() {
 #    printf "[General]\nColorScheme=BreezeDark\n\n[Icons]\nTheme=breeze-dark\n\n[KDE]\nwidgetStyle=Breeze\n" > /home/alarm/.config/kdedefaults/kdeglobals
 
     pacman -Rns --noconfirm ark
+    pacman -Rns --noconfirm sddm-kcm
+    pacman -Rns --noconfirm eos-plasma-sddm-config
+    pacman -Rns --noconfirm sddm
     printf "\n${CYAN}Chroot Complete${NC}\n"
 
 }   # end of function _finish_up
@@ -131,7 +134,7 @@ Main() {
 #   _base_addons
 
    _finish_up
-   chown -R alarm:alarm /home/alarm
+#   chown -R alarm:alarm /home/alarm
 }  # end of Main
 
 Main "$@"
