@@ -1,13 +1,14 @@
 [Unit]
 Description=Clean-up Script
-After=getty.target
-Before=multi-user.target
+Before=basic.target
+After=local-fs.target sysint.target
+DefaultDependencies=no
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/clean-up.sh
 RemainAfterExit=yes
+ExecStart=/usr/local/bin/clean-up.sh
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=basic.target
 

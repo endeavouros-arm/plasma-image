@@ -14,7 +14,12 @@ Main() {
      pacman -Rns --noconfirm eos-plasma-sddm-config
      pacman -Rns --noconfirm spectacle
      pacman -Rns --noconfirm plasma
-     pacman -Rns --noconfirm konsole dolphin kate libkate
+     pacman -Rns --noconfirm konsole
+     pacman -Rns --noconfirm dolphin
+     pacman -Rns --noconfirm kate
+     pacman -Rns --noconfirm libkate
+     pacman -Rns --noconfirm kdeclarative5
+     pacman -Rns --noconfirm kded5
      rm /etc/sddm.conf
   fi
 
@@ -34,6 +39,7 @@ Main() {
   rm /usr/local/bin/clean-up.sh
   rm /usr/local/bin/resize-fs.sh
   rm /etc/systemd/system/multi-user.target.wants/clean-up.service
+  rm /etc/systemd/system/clean-up.service
   # restore getty@.service
   mv /usr/lib/systemd/system/getty@.service.bak /usr/lib/systemd/system/getty@.service
   rm -rf /root/configs
@@ -75,28 +81,7 @@ Main() {
      sed -i 's/user-session=plasma/#user-session=/' /etc/lightdm/lightdm.conf
   fi
 
-#  if [ "$LIGHTDM" = "true" ] ; then
-#    rm /etc/sddm.conf.d/kde_settings.conf
-#    systemctl disable sddm.service
-#    systemctl enable lightdm.service
-#    systemctl start lightdm.service
-#  fi
-
-#  if [ "GDM" = "true" ] ; then
-#    rm /etc/sddm.conf.d/kde_settings.conf
-#    systemctl disable sddm.service
-#    systemctl enable gdm.service
-#    systemctl start gdm.service
-#  fi
-
-#  if [ "SDDM" = "true" ] ; then
-#    systemctl disable sddm.service
-#    systemctl enable sddm.service
-#    systemctl start sddm.service
-#  fi
-
   systemctl enable NetworkManager
-  systemctl reboot
 
   exit
 }
