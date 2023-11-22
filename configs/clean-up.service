@@ -1,7 +1,7 @@
 [Unit]
 Description=Clean-up Script
 Before=basic.target
-After=local-fs.target sysint.target
+After=sysint.target
 DefaultDependencies=no
 
 [Service]

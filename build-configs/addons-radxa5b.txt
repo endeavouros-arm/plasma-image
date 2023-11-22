@@ -1,6 +1,7 @@
 linux-rockchip-rk3588
 linux-rockchip-rk3588-headers
-mali-G610-firmware
+mali-valhall-g610-firmware
 mesa-panfork-git
+mesa-vdpau-panfork-git
 mesa-utils
 uboot-tools

@@ -28,6 +28,7 @@ diffutils
 dmidecode
 dnsmasq
 dosfstools
+dracut
 duf
 e2fsprogs
 efibootmgr
@@ -80,6 +81,8 @@ lsscsi
 meld
 mesa
 mesa-utils
+mkinitcpio-archiso
+mkinitcpio-nfs-utils
 mlocate
 modemmanager
 mtools

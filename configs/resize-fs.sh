@@ -44,16 +44,16 @@ fi
 
 
 # Change fstab to boot partition UUID
-genfstab -U / > /etc/fstab
+#genfstab -U / > /etc/fstab
 # Change boot script to root partition UUID
-ROOT_UUID=$(lsblk -o NAME,UUID | grep $PART_NAME | awk '{print $2}')
-if [ -f /boot/extlinux/extlinux.conf ]; then
-    sed -i "s/LABEL=ROOT_EOS/UUID=$ROOT_UUID/g" /boot/extlinux/extlinux.conf
-elif [ -f /boot/boot.ini ]; then
-    sed -i "s/LABEL=ROOT_EOS/UUID=$ROOT_UUID/g" /boot/boot.ini
-elif [ -f /boot/cmdline.txt ]; then
-    sed -i "s/LABEL=ROOT_EOS/UUID=$ROOT_UUID/g" /boot/cmdline.txt
-fi
+#ROOT_UUID=$(lsblk -o NAME,UUID | grep $PART_NAME | awk '{print $2}')
+#if [ -f /boot/extlinux/extlinux.conf ]; then
+#    sed -i "s/LABEL=ROOT_EOS/UUID=$ROOT_UUID/g" /boot/extlinux/extlinux.conf
+#elif [ -f /boot/boot.ini ]; then
+#    sed -i "s/LABEL=ROOT_EOS/UUID=$ROOT_UUID/g" /boot/boot.ini
+#elif [ -f /boot/cmdline.txt ]; then
+#    sed -i "s/LABEL=ROOT_EOS/UUID=$ROOT_UUID/g" /boot/cmdline.txt
+#fi
 
 
 rm /usr/local/resize-fs.sh

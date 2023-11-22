@@ -50,12 +50,12 @@ _install_Radxa5b_image() {
 
     pacstrap -cGM MP - < $WORKDIR/build-configs/ARM-pkglist.txt
     _copy_stuff_for_chroot
-    cp -r $WORKDIR/configs/extlinux MP/boot/
+    cp -r $WORKDIR/configs/extlinux $WORKDIR/MP/boot/
     # change fstab to UUID instead of partition label
     mv $WORKDIR/MP/etc/fstab $WORKDIR/MP/etc/fstab-bkup
     uuidMP1=$(lsblk -o UUID $PARTNAME1)
     uuidMP1=$(echo $uuidMP1 | sed 's/ /=/g')
-    printf "# /etc/fstab: static file system information.\n#\n# Use 'blkid' to print the universally unique identifier for a device; this may\n" >> $WORKDIR/MP/etc/fstab
+    printf "# /etc/fstab: static file system information.\n#\n# Use 'blkid' to print the universally unique identifier for a device; this may\n" > $WORKDIR/MP/etc/fstab
     printf "# be used with UUID= as a more robust way to name devices that works even if\n# disks are added and removed. See fstab(5).\n" >> $WORKDIR/MP/etc/fstab
     printf "#\n# <file system>             <mount point>  <type>  <options>  <dump>  <pass>\n\n"  >> $WORKDIR/MP/etc/fstab
     printf "$uuidMP1  /boot  vfat  defaults  0  0\n" >> $WORKDIR/MP/etc/fstab
@@ -66,7 +66,6 @@ _install_Radxa5b_image() {
     new="root=$uuidMP2"
     sed -i "s#$old#$new#" $WORKDIR/MP/boot/extlinux/extlinux.conf
 }   # End of function _install_Radxa5b_image
-
 
 _install_Pinebook_image() {
     pacstrap -cGM MP - < $WORKDIR/build-configs/pkglist-pbp.txt
@@ -95,7 +94,6 @@ _install_OdroidN2_image() {
     fi
 }   # End of function _install_OdroidN2_image
 
-
 _install_RPi4_image() { 
 
      pacstrap -cGM MP - < $WORKDIR/build-configs/ARM-pkglist.txt
@@ -104,15 +102,15 @@ _install_RPi4_image() {
        mv $WORKDIR/MP/etc/fstab $WORKDIR/MP/etc/fstab-bkup
        uuidno=$(lsblk -o UUID $PARTNAME1)
        uuidno=$(echo $uuidno | sed 's/ /=/g')
-       printf "# /etc/fstab: static file system information.\n#\n# Use 'blkid' to print the universally unique identifier for a device; this may\n" >> $WORKDIR/MP/etc/fstab
+       printf "# /etc/fstab: static file system information.\n#\n# Use 'blkid' to print the universally unique identifier for a device; this may\n" > $WORKDIR/MP/etc/fstab
        printf "# be used with UUID= as a more robust way to name devices that works even if\n# disks are added and removed. See fstab(5).\n" >> $WORKDIR/MP/etc/fstab
        printf "#\n# <file system>             <mount point>  <type>  <options>  <dump>  <pass>\n\n"  >> $WORKDIR/MP/etc/fstab
        printf "$uuidno  /boot  vfat  defaults  0  0\n" >> $WORKDIR/MP/etc/fstab
        # change boot.ini to UUID instead of partition label.
        uuidno=$(lsblk -o UUID $PARTNAME2)
        uuidno=$(echo $uuidno | sed 's/ /=/g')
-       uuidno="\"root="$uuidno
-       old=$(cat $WORKDIR/MP/boot/boot.ini | grep root= | awk '{print $3}')
+       uuidno="root="$uuidno
+       old=$(cat $WORKDIR/MP/boot/cmdline.txt | grep root= | awk '{print $1}')
        sed -i "s#$old#$uuidno#" $WORKDIR/MP/boot/cmdline.txt
     fi
 }  # End of function _install_RPi4_image
