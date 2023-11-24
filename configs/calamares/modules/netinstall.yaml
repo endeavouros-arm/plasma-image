@@ -30,14 +30,12 @@
           - dhclient
           - dnsmasq
           - ethtool
-          - gnu-netcat
           - iwd
           - modemmanager
           - nbd
           - ndisc6
           - networkmanager
           - networkmanager-openvpn
-          - nmap
           - nss-mdns
           - openconnect
           - openvpn
@@ -186,7 +184,6 @@
   critical: true
   packages:
     - firefox
-    - firefox-i18n-$LOCALE
 - name: "Firewall"
   description: "Firewall support"
   hidden: false

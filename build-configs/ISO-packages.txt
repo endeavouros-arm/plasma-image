@@ -12,7 +12,6 @@ base
 base-devel
 bash-completion
 bind
-bluedevil
 bluez
 bluez-utils
 breeze-gtk
