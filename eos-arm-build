@@ -86,7 +86,7 @@ _install_OdroidN2_image() {
        printf "#\n# <file system>             <mount point>  <type>  <options>  <dump>  <pass>\n\n"  >> $WORKDIR/MP/etc/fstab
        printf "$uuidno  /boot  vfat  defaults  0  0\n" >> $WORKDIR/MP/etc/fstab
        # change boot.ini to UUID instead of partition label.
-       uuidno=$(lsblk -o UUID $PARTNAME2)
+       uuidno=$(lsblk -o UUID $PARTNAME2)  #  new="\"root="$uuidno    new="\"root="$uuidno
        uuidno=$(echo $uuidno | sed 's/ /=/g')
        uuidno="\"root="$uuidno
        old=$(cat $WORKDIR/MP/boot/boot.ini | grep root= | awk '{print $3}')
@@ -240,7 +240,6 @@ _create_rootfs(){
           cd $WORKDIR/MP
           time bsdtar -cf - * | zstd -z --rsyncable -10 -T0 -of /home/$USERNAME/endeavouros-arm/test-images/enosLinuxARM-radxa-5b-latest.tar.zst
           printf "\n\nbsdtar is finished creating the image.\nand will calculate a sha512sum\n\n"
-#          cd $WORKDIR
           cd /home/$USERNAME/endeavouros-arm/test-images/
           sha512sum enosLinuxARM-radxa-5b-latest.tar.zst > enosLinuxARM-radxa-5b-latest.tar.zst.sha512sum
           cd $WORKDIR
