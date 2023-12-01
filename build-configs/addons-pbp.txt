@@ -1,0 +1,8 @@
+ap6256-firmware
+acpid
+libdrm-pinebookpro
+linux-eos-arm
+linux-eos-arm-headers
+pinebookpro-audio
+pinebookpro-post-install
+towboot-pinebookpro-bin

@@ -1,6 +1,11 @@
 #!/bin/bash
 
-source /usr/share/endeavouros/scripts/eos-script-lib-yad
+# source /usr/share/endeavouros/scripts/eos-script-lib-yad
+
+if [ ! -d /etc/pacman.d/gnupg ]; then
+   sudo pacman-key --init
+   sudo pacman-key --populate archlinuxarm endeavouros
+fi
 
 calamares-official() {
     sudo cp /home/alarm/configs/calamares/settings_online.conf /etc/calamares/settings.conf

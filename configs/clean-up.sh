@@ -6,8 +6,6 @@ Main() {
 
   # using the presence of ark to determine if KDE Plasma was a chosen Desktop Environment
   if pacman -Qq ark >/dev/null 2>&1 ; then
-#     SDDM="true"
-#     _disable_autologin_sddm
      pacman -Rns --noconfirm plasma-welcome
      pacman -S --noconfirm eos-plasma-sddm-config # re-install to set sddm config
   else
@@ -23,16 +21,17 @@ Main() {
      rm /etc/sddm.conf
   fi
 
-  cp /home/alarm/endeavour-install.log /tmp/
+#  cp /home/alarm/endeavour-install.log /tmp/
   sed -i 's/alarm ALL=(ALL:ALL) NOPASSWD: ALL/ /g' /etc/sudoers
   userdel -rf alarm
   newname=$(cat /etc/passwd | grep 1001 | awk -F':' '{print $1}')
-  rm /home/$newname/.Xauthority
   usermod -u 1000 $newname
   groupmod -g 1000 $newname
   chown -R $newname:$newname /home/$newname
-  cp /tmp/endeavour-install.log /home/$newname/endeavour-install.log
+  rm /home/$newname/.Xauthority
+  cp /var/log/endeavour-install.log /home/$newname/endeavour-install.log
   chown $newname:$newname /home/$newname/endeavour-install.log
+  printf "\n[Wallet]\nEnabled=false\n" > /home/$newname/.config/kwalletrc
 
   pacman -Rns --noconfirm calamares
   rm -rf /etc/calamares/

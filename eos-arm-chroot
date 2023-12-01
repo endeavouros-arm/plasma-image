@@ -31,7 +31,7 @@ _finish_up() {
     rm /root/eos-arm-chroot
     rm -rf /etc/pacman.d/gnupg
     rm -rf /var/log/pacman.log
-    cp /root/configs/endeavouros-wallpaper.png /usr/share/endeavouros/backgrounds/endeavouros-wallpaper.png
+    cp /root/configs/endeavouros-arm-wallpaper.png /usr/share/endeavouros/backgrounds/endeavouros-wallpaper.png
 
     # Install config folders and files .config .local and copy .desktop files
     rm -rf /home/alarm/.config
@@ -60,8 +60,8 @@ _finish_up() {
     cp /root/configs/calamares/modules/* /etc/calamares/modules/
     cp /root/configs/calamares/scripts/* /etc/calamares/scripts
     cp /root/configs/calamares/settings_online.conf  /etc/calamares/
-    cp /root/configs/calamares/settings_community.conf  /etc/calamares/
-    chown -R alarm:alarm  /home/alarm/   # .config /home/alarm/Desktop /home/alarm/.local
+    printf "\n[Wallet]\nEnabled=false\n" > /home/alarm/.config/kwalletrc
+    chown -R alarm:alarm  /home/alarm/
     printf "[Match]\nName=wlan*\n\n[Network]\nDHCP=yes\nDNSSEC=no\n" > /etc/systemd/network/wlan.network
 
     systemctl enable systemd-timesyncd
