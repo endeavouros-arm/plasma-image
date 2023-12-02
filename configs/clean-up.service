@@ -6,7 +6,6 @@ DefaultDependencies=no
 
 [Service]
 Type=oneshot
-RemainAfterExit=yes
 ExecStart=/usr/local/bin/clean-up.sh
 
 [Install]

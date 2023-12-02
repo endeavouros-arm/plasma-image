@@ -21,7 +21,7 @@ Main() {
      rm /etc/sddm.conf
   fi
 
-#  cp /home/alarm/endeavour-install.log /tmp/
+  cp /home/alarm/endeavour-install.log /var/log/endeavour-install.log
   sed -i 's/alarm ALL=(ALL:ALL) NOPASSWD: ALL/ /g' /etc/sudoers
   userdel -rf alarm
   newname=$(cat /etc/passwd | grep 1001 | awk -F':' '{print $1}')
@@ -31,8 +31,9 @@ Main() {
   rm /home/$newname/.Xauthority
   cp /var/log/endeavour-install.log /home/$newname/endeavour-install.log
   chown $newname:$newname /home/$newname/endeavour-install.log
-  printf "\n[Wallet]\nEnabled=false\n" > /home/$newname/.config/kwalletrc
-
+  if pacman -Qq ark >/dev/null 2>&1 ; then
+     printf "\n[Wallet]\nEnabled=false\n" > /home/$newname/.config/kwalletrc
+  fi
   pacman -Rns --noconfirm calamares
   rm -rf /etc/calamares/
   rm /usr/local/bin/clean-up.sh
