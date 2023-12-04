@@ -164,6 +164,7 @@ xsettingsd
 xterm
 xz
 yay
+kuserfeedback5
 plasma
 konsole
 dolphin
