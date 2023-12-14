@@ -1,0 +1,19 @@
+{
+    "id": "0db320fab6118affa7615ed230293d37",
+    "metadata": {
+        "fullname": "xrandr-Samsung Electric Company-SAMSUNG-2048",
+        "name": "HDMI-1"
+    },
+    "mode": {
+        "refresh": 59.7895393371582,
+        "size": {
+            "height": 768,
+            "width": 1366
+        }
+    },
+    "overscan": 0,
+    "rgbrange": 0,
+    "rotation": 1,
+    "scale": 1,
+    "vrrpolicy": 2
+}

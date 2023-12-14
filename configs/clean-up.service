@@ -9,5 +9,6 @@ Type=oneshot
 ExecStart=/usr/local/bin/clean-up.sh
 
 [Install]
+# RequiredBy=basic.target
 WantedBy=basic.target
 

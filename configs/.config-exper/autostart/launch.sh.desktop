@@ -1,0 +1,7 @@
+[Desktop Entry]
+Exec=/home/alarm/configs/launch.sh
+Icon=
+Name=launch.sh
+Path=
+Terminal=False
+Type=Application
