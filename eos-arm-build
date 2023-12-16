@@ -151,10 +151,10 @@ _partition_format_mount() {
    printf "\n${CYAN}Partitioning, & formatting storage device...${NC}\n"
    DEVICESIZE=8192
    case $PLATFORM in
-      RPi64)    _partition_RPi4 ;;
-      OdroidN2) _partition_OdroidN2 ;;
-      Pinebook) _partition_Pinebook ;;
-      Radxa5b)  _partition_Radxa5b ;;
+      Rpi4 | Rpi5) _partition_RPi4 ;;
+      OdroidN2)    _partition_OdroidN2 ;;
+      Pinebook)    _partition_Pinebook ;;
+      Radxa5b)     _partition_Radxa5b ;;
    esac
 
    printf "\n${CYAN}Formatting storage device $DEVICENAME...${NC}\n"
@@ -200,7 +200,8 @@ _create_image(){
        Radxa5b) image_name="enosLinuxARM-radxa-5B-latest.img.xz"  ;;
        OdroidN2) image_name="enosLinuxARM-odroid-n2-latest.img.xz" ;;
        Pinebook) image_name="enosLinuxARM-pbp-latest.img.xz" ;;
-       RPi64) image_name="enosLinuxARM-rpi-latest.img.xz" ;;
+       Rpi4) image_name="enosLinuxARM-rpi4-latest.img.xz" ;;
+       Rpi5) image_name="enosLinuxARM-rpi5-latest.img.xz" ;;
     esac
     xz -kvfT0 -2 $WORKDIR/test.img
     cp $WORKDIR/test.img.xz /home/$USERNAME/endeavouros-arm/test-images/$image_name
@@ -215,7 +216,8 @@ _create_rootfs(){
        Radxa5b) image_name="enosLinuxARM-radxa-5b-latest.tar.zst" ;;
        OdroidN2) image_name="enosLinuxARM-odroid-n2-latest.tar.zst" ;;
        Pinebook) image_name="enosLinuxARM-pbp-latest.tar.zst" ;;
-       RPi64) image_name="enosLinuxARM-rpi-latest.tar.zst" ;;
+       Rpi4) image_name="enosLinuxARM-rpi4-latest.tar.zst" ;;
+       Rpi5) image_name="enosLinuxARM-rpi5-latest.tar.zst" ;;
     esac
           cd $WORKDIR/MP
           time bsdtar -cf - * | zstd -z --rsyncable -10 -T0 -of /home/$USERNAME/endeavouros-arm/test-images/$image_name
@@ -232,10 +234,10 @@ _help() {
    printf "options:\n"
    printf " -h  Print this Help.\n\n"
    printf "All these options are required\n"
-   printf " -p  enter platform: rpi or odn or pbp or rad\n"
+   printf " -p  enter platform: rpi4 or rpi5 or odn or pbp or rad\n"
    printf " -t  image type: r (for rootfs) or i (for image) \n"
    printf " -c  create image: y or n\n"
-   printf "example: sudo ./eos-arm-build -p rpi -t i -c y \n\n"
+   printf "example: sudo ./eos-arm-build -p rpi4 -t i -c y \n\n"
 }
 
 _read_options() {
@@ -280,7 +282,8 @@ _read_options() {
     shift $((OPTIND-1))
 
     case $PLAT in
-         rpi) PLATFORM="RPi64" ;;
+         rpi4) PLATFORM="Rpi4" ;;
+         rpi5) PLATFORM="Rpi5" ;;
          odn) PLATFORM="OdroidN2" ;;
          pbp) PLATFORM="Pinebook" ;;
          rad) PLATFORM="Radxa5b" ;;
@@ -334,7 +337,9 @@ Main() {
     _partition_format_mount  # function to partition, format, and mount a uSD card or eMMC card
     cp $WORKDIR/build-configs/ISO-packages.txt  $WORKDIR/build-configs/ARM-pkglist.txt
     case $PLATFORM in
-       RPi64)    cat $WORKDIR/build-configs/addons-rpi.txt >> $WORKDIR/build-configs/ARM-pkglist.txt
+       Rpi4)    cat $WORKDIR/build-configs/addons-rpi4.txt >> $WORKDIR/build-configs/ARM-pkglist.txt
+                 _install_RPi4_image ;;
+       Rpi5)     cat $WORKDIR/build-configs/addons-rpi5.txt >> $WORKDIR/build-configs/ARM-pkglist.txt
                  _install_RPi4_image ;;
        OdroidN2) cat $WORKDIR/build-configs/addons-odn.txt >> $WORKDIR/build-configs/ARM-pkglist.txt
                  _install_OdroidN2_image ;;

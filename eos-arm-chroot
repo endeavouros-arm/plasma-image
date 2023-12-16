@@ -108,8 +108,10 @@ Main() {
    cp -r /root/configs/ /home/alarm/
 
    case $PLATFORM_NAME in
-     rpi) cp /boot/config.txt /boot/config.txt.orig
-          cp /root/configs/rpi4-config.txt /boot/config.txt
+#     rpi4) cp /boot/config.txt /boot/config.txt.orig
+#          cp /root/configs/rpi4-config.txt /boot/config.txt
+#          ;;
+     rpi5) cp /root/configs/99-vd3.conf /etc/X11/xorg.conf.d/
           ;;
      odn) sed -i 's/setenv preferred_resolution "1920x1080@60"/setenv preferred_resolution ""/' /boot/boot.ini
           sed -i 's/setenv petitboot_edid "1920x1080"/setenv petitboot_edid ""/' /boot/boot.ini
