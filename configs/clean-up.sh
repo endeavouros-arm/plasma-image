@@ -2,12 +2,13 @@
 
 Main() {
 
-   desktop=" "
-
   # using the presence of ark to determine if KDE Plasma was a chosen Desktop Environment
   if pacman -Qq ark >/dev/null 2>&1 ; then
      pacman -Rns --noconfirm plasma-welcome
      pacman -S --noconfirm eos-plasma-sddm-config # re-install to set sddm config
+     if pacman -Qq linux-rockchip-rk3588 >/dev/null 2>&1 ; then
+        pacman -R --noconfirm plasma-wayland-session
+     fi
   else
      pacman -Rns --noconfirm eos-plasma-sddm-config
      pacman -Rns --noconfirm spectacle
@@ -47,41 +48,16 @@ Main() {
   rm /root/platformname
   rm /root/type
 
-  if pacman -Qq xfce4-session >/dev/null 2>&1 ; then
-    desktop="lightdm"
-    systemctl enable lightdm.service
-  elif pacman -Qq i3-gaps >/dev/null 2>&1 ; then
-    desktop="lightdm"
-    systemctl enable lightdm.service
-  elif pacman -Qq gnome-shell >/dev/null 2>&1 ; then
-    desktop="gdm"
-    systemctl enable gdm.service
-  elif pacman -Qq mate-desktop >/dev/null 2>&1 ; then
-    desktop="lightdm"
-    systemctl enable lightdm.service
-  elif pacman -Qq cinnamon-desktop >/dev/null 2>&1 ; then
-    desktop="lightdm"
-    systemctl enable lightdm.service
-  elif pacman -Qq budgie-desktop >/dev/null 2>&1 ; then
-    desktop="lightdm"
-    systemctl enable lightdm.service
-  elif pacman -Qq plasma-desktop >/dev/null 2>&1 ; then
-    desktop="sddm"
-    systemctl enable sddm.service
-  elif pacman -Qq lxqt-session >/dev/null 2>&1 ; then
-    desktop="sddm"
-    systemctl enable sddm.service
-  elif pacman -Qq lxde-common >/dev/null 2>&1 ; then
-    desktop="lightdm"
-    systemctl enable lightdm.service
-  fi
-
-  if [[ "$desktop" = "lightdm" ]] ; then
+  if pacman -Qq lightdm >/dev/null 2>&1 ; then
      sed -i 's/draw-grid=true/draw-grid=false/' /etc/lightdm/slick-greeter.conf
      sed -i 's/user-session=plasma/#user-session=/' /etc/lightdm/lightdm.conf
   fi
 
-  systemctl enable NetworkManager
+#  if pacman -Qq plasma-desktop >/dev/null 2>&1 ; then
+#     if pacman -Qq linux-rockchip-rk3588 >/dev/null 2>&1 ; then
+#        pacman -R --noconfirm plasma-wayland-session
+#     fi
+#  fi
 
   exit
 }

@@ -118,8 +118,7 @@ Main() {
           ;;
      pbp) sed -i 's|^MODULES=(|MODULES=(btrfs |' /etc/mkinitcpio.conf
           ;;
-     rad) # cp -r /root/extlinux /boot
-          mkinitcpio -P
+     rad) mkinitcpio -P
           ;;
    esac
 
