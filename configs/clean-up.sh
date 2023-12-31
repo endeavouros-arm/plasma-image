@@ -8,6 +8,10 @@ Main() {
      pacman -S --noconfirm eos-plasma-sddm-config # re-install to set sddm config
      if pacman -Qq linux-rockchip-rk3588 >/dev/null 2>&1 ; then
         pacman -R --noconfirm plasma-wayland-session
+     elif pacman -Qq linux-rpi >/dev/null 2>&1 ; then
+        pacman -R --noconfirm plasma-wayland-session
+     elif pacman -Qq linux-rpi-16k >/dev/null 2>&1 ; then
+        pacman -R --noconfirm plasma-wayland-session
      fi
   else
      pacman -Rns --noconfirm eos-plasma-sddm-config
@@ -52,12 +56,6 @@ Main() {
      sed -i 's/draw-grid=true/draw-grid=false/' /etc/lightdm/slick-greeter.conf
      sed -i 's/user-session=plasma/#user-session=/' /etc/lightdm/lightdm.conf
   fi
-
-#  if pacman -Qq plasma-desktop >/dev/null 2>&1 ; then
-#     if pacman -Qq linux-rockchip-rk3588 >/dev/null 2>&1 ; then
-#        pacman -R --noconfirm plasma-wayland-session
-#     fi
-#  fi
 
   exit
 }
