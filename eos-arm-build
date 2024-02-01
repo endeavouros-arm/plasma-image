@@ -242,7 +242,7 @@ _help() {
    printf " -h  Print this Help.\n\n"
    printf "All these options are required\n"
    printf " -p  enter platform: rpi4 or rpi5 or odn or pbp or rad\n"
-   printf " -t  image type: r (for rootfs) or i (for image) \n"
+   printf " -t  image type: r (for rootfs) or i (for image) or b (for both)\n"
    printf " -c  create image: y or n\n"
    printf "example: sudo ./eos-arm-build -p rpi4 -t i -c y \n\n"
 }
@@ -306,6 +306,7 @@ _read_options() {
     case $TYP in
          r) TYPE="Rootfs" ;;
          i) TYPE="Image" ;;
+         b) TYPE="Both" ;;
          *) TYPE=" " ;;
     esac
 }
@@ -370,7 +371,7 @@ Main() {
     
     if $CREATE ; then
 
-        if [ "$TYPE" == "Rootfs" ]; then
+        if [ "$TYPE" == "Rootfs" ] || [ "$TYPE" == "Both" ]; then
             printf "\n\n${CYAN}Creating Rootfs${NC}\n\n"
             _create_rootfs
             printf "\n\n${CYAN}Created Rootfs${NC}\n\n"
@@ -383,7 +384,7 @@ Main() {
     losetup -d $DEVICENAME
     # rm ArchLinuxARM*
     if $CREATE ; then
-        if [ "$TYPE" == "Image" ]; then
+        if [ "$TYPE" == "Image" ] || [ "$TYPE" == "Both" ]; then
             printf "\n\n${CYAN}Creating Image${NC}\n\n"
             _create_image
             printf "\n\n${CYAN}Created Image${NC}\n\n"
