@@ -2,11 +2,11 @@
 
 # source /usr/share/endeavouros/scripts/eos-script-lib-yad
 
-if [ ! -d /etc/pacman.d/gnupg ]; then
+# if [ ! -d /etc/pacman.d/gnupg ]; then
    sudo pacman-key --init
    sudo pacman-key --populate archlinuxarm endeavouros
    sudo pacman-key --lsign-key builder@archlinuxarm.org
-fi
+# fi
 
 
 
