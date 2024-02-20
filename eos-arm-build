@@ -9,8 +9,8 @@ _partition_Radxa5b() {
     printf "\nBoth check sums should be the same\n\n"
     parted --script -a minimal $DEVICENAME \
     mklabel gpt \
-    mkpart primary 17MB 266MB \
-    mkpart primary 266MB $DEVICESIZE"MB" \
+    mkpart primary 17MB 400MB \
+    mkpart primary 400MB $DEVICESIZE"MB" \
     quit
 }
 
@@ -19,24 +19,24 @@ _partition_Pinebook() {
     parted --script -a minimal $DEVICENAME \
     mklabel msdos \
     unit mib \
-    mkpart primary fat32 16MiB 216MiB \
-    mkpart primary 216MiB $DEVICESIZE"MiB" \
+    mkpart primary fat32 16MiB 400MiB \
+    mkpart primary 400MiB $DEVICESIZE"MiB" \
     quit
 }
 
 _partition_OdroidN2() {
     parted --script -a minimal $DEVICENAME \
     mklabel msdos \
-    mkpart primary fat32 2MB 258MB \
-    mkpart primary 258MB $DEVICESIZE"MB" \
+    mkpart primary fat32 2MB 300MB \
+    mkpart primary 300MB $DEVICESIZE"MB" \
     quit
 }
 
 _partition_RPi4() {
     parted --script -a minimal $DEVICENAME \
     mklabel gpt \
-    mkpart primary fat32 2MB 202MB \
-    mkpart primary 202MB $DEVICESIZE"MB" \
+    mkpart primary fat32 2MB 252MB \
+    mkpart primary 252MB $DEVICESIZE"MB" \
     quit
 }
 
